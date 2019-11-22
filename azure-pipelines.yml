@@ -1,21 +1,9 @@
-# Ant
-# Build your Java projects and run tests with Apache Ant.
-# Add steps that save build artifacts and more:
-# https://docs.microsoft.com/azure/devops/pipelines/languages/java
-
-trigger:
-- master
-
-pool:
-  vmImage: 'ubuntu-latest'
-
-steps:
-- task: Ant@1
+- task: AzureResourceManagerTemplateDeployment@3
   inputs:
-    workingDirectory: ''
-    buildFile: 'build.xml'
-    javaHomeOption: 'JDKVersion'
-    jdkVersionOption: '1.8'
-    jdkArchitectureOption: 'x64'
-    publishJUnitResults: true
-    testResultsFiles: '**/TEST-*.xml'
+    deploymentScope: 'Resource Group'
+    ConnectedServiceName: 'Visual Studio Enterprise(fab2f283-da83-4c46-8c3a-dcca6f6d49e2)'
+    subscriptionName: 'fab2f283-da83-4c46-8c3a-dcca6f6d49e2'
+    action: 'Create Or Update Resource Group'
+    location: 'Australia Central'
+    templateLocation: 'Linked artifact'
+    deploymentMode: 'Incremental'
